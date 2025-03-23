@@ -10,45 +10,44 @@ export default function SearchBox({updateWeather}) {
     const API_URL = "http://api.openweathermap.org/data/2.5/weather";
     const API_KEY = "adf393252891abb9f4c6ed2e43919bcc";
 
-    let getWeatherInfo = async () => {
-        try {
-            let response = await fetch(`${API_URL}?q=${city}&appid=${API_KEY}&units=metric`);
-            let jsonResponse = await response.json();
-            if (jsonResponse.cod !== 200) {
-                throw new Error(jsonResponse.message);
-            }
-    
-            let result = {
-                city: city,
-                temp: jsonResponse.main.temp,
-                tempMin: jsonResponse.main.temp_min,
-                tempMax: jsonResponse.main.temp_max,
-                humidity: jsonResponse.main.humidity,
-                feelsLike: jsonResponse.main.feels_like,
-                weather: jsonResponse.weather[0].description,
-            };
-            return result;
-        } catch (err) {
-            throw err; 
-        }
-    };
-    
+    let getWeatherInfo = async () =>{
+        try{
+        let response = await fetch(`${API_URL}?q=${city}&appid=${API_KEY}&units=metric`);
+        let jsonResponse = await response.json();
+        console.log(jsonResponse);
+        let result = {
+            city: city,
+            temp: jsonResponse.main.temp,
+            tempMin : jsonResponse.main.temp_min,
+            tempMax: jsonResponse.main.temp_max,
+            humidity : jsonResponse.main.humidity,
+            feelsLike : jsonResponse.main.feels_like,
+            weather : jsonResponse.weather[0].description,
+        };
+        console.log(result);
+        return result;
+    }catch(err){
+        throw err;
+    }
+};
+
     let handleChange = (evt) =>{
         setCity(evt.target.value);
     };
-    let handleSubmit = async (evt) => {
-        evt.preventDefault(); 
-        try {
+
+    let handleSubmit = async (evt) =>{
+        try{
+            evt.preventDefault();
             console.log(city);
-            setError(false);
-            let newInfo = await getWeatherInfo();
-            updateWeather(newInfo);
             setCity("");
-        } catch (err) {
+           let newInfo = await getWeatherInfo();
+           updateWeather(newInfo);
+        } catch(err){
             setError(true);
+
         }
+       
     };
-    
 
   return (
     <div className="SearchBox">
