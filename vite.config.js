@@ -7,5 +7,11 @@ export default defineConfig({
   server: {
     host: true, // Allows external access
     port: process.env.PORT || 3000, // Use Render's assigned port
-  }
+  },
+  preview: {
+    host: true,
+    port: process.env.PORT || 3000,
+    allowedHosts: ["weathernexus.onrender.com"], // Add your Render domain
+  },
+
 });
