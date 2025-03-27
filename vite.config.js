@@ -10,6 +10,6 @@ export default defineConfig({
   preview: {
     host: true,
     port: process.env.PORT || 5173,
-    allowedHosts: ["weather-app-gyby.onrender.com"], // Add your Render domain
+    allowedHosts: ["all"], // Add your Render domain
   },
 });
